@@ -27,9 +27,11 @@ router.post('/signin',(req,res)=>{
         }
         else{
             console.log(`Success`)
-            res.cookie('sessionEmail',req.body.email) //Use Email as session variables
+            req.session.sessionEmail=req.body.email
+
+            console.log(req.session.sessionEmail)
             
-            return res.status(200).json({msg:`success`})
+            return res.status(200).json({msg:`successfully logged in and session-cookie in the server is ${req.session.sessionEmail}`})
         }
     })
     .catch(err=>console.log(err))
