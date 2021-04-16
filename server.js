@@ -6,7 +6,16 @@ const cookieParser=require('cookie-parser')
 const session=require('express-session')
 
 app.use(cookieParser())
-app.use(session({secret:'603607e0226c9916057aa56b7b9c9b93e95a0ee3f4f97f2f5250c860311f84e495ba0fbd467d512d39b2786efc00a233239c2cba3a35146db5eed56839eef766'}))
+app.use(session({
+    secret:'603607e0226c9916057aa56b7b9c9b93e95a0ee3f4f97f2f5250c860311f84e495ba0fbd467d512d39b2786efc00a233239c2cba3a35146db5eed56839eef766',
+    
+    // Forces the session to be save back to the session store
+    resave:true,
+    
+    //Forces a session that is "uninitialized to be saved to the store
+    saveUninitialized:true,
+    cookie:{secure:true}
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())

@@ -20,16 +20,16 @@ router.get('/',(req,res)=>{
 //Get posts of a certain user
 router.get('/userposts',(req,res)=>{
     //let email=req.session.sessionEmail
-    let email=req.body.email
-    Data.find({user:email},(err,result)=>{
-        if(err){
-            console.log(err)
-        }else{
-            console.log(result)
-            return res.status(200).json(result)
-        }
-    })
-    //console.log(req.session.sessionEmail)
+    // let email=req.body.email
+    // Data.find({user:email},(err,result)=>{
+    //     if(err){
+    //         console.log(err)
+    //     }else{
+    //         console.log(result)
+    //         return res.status(200).json(result)
+    //     }
+    // })
+    console.log(req.session.sessionEmail)
 })
 
 function validateUser(req,res,next){

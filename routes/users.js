@@ -26,10 +26,18 @@ router.post('/signin',(req,res)=>{
             return res.status(400).json({msg:`wrong password`})
         }
         else{
-            console.log(`Success`)
+            console.log(`Successfully signed in`)
+            
             req.session.sessionEmail=req.body.email
+            req.session.save(err=>{
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(`session saved to store`)
+                }
+            })
 
-            console.log(req.session.sessionEmail)
+            console.log(`SessionEmail created upon login ${req.session.sessionEmail}`)
             
             return res.status(200).json({msg:`successfully logged in and session-cookie in the server is ${req.session.sessionEmail}`})
         }
@@ -58,9 +66,12 @@ router.post('/register',(req,res)=>{
     });
 })
 
-router.post('/logout',(req,res)=>{
-    const {cookies}=req
-    res.clearCookie('sessionEmail')
+router.get('/logout',(req,res)=>{
+    console.log(`current sessionEmail is ${req.session.sessionEmail}`)
+    res.send(req.session)
+    req.session.destroy((error)=>{
+        console.log(`Session destroyed`)
+    })
 })
 
 module.exports=router;
